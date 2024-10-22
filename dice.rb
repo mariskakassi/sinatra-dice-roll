@@ -12,15 +12,7 @@ BetterErrors::Middleware.allow_ip!('0.0.0.0/0.0.0.0')
 
 
 get("/") do
-  erb(:elephant)
-end
-
-get("/zebra") do
-  "We must add a route for each path we want to support"
-end
-
-get("/giraffe") do
-  "Hopefully this shows up without having to restart the server 🤞🏾"
+  erb(:home, { :layout => :wrapper })
 end
 
 get("/dice/2/6") do
@@ -28,10 +20,11 @@ get("/dice/2/6") do
   second_die = rand(1..6)
   sum = first_die + second_die
 	
-  outcome = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
+  @result = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
 	
-  "<h1>2d6</h1>
-   <p>#{outcome}</p>"
+  # "<h1>2d6</h1>
+  #  <p>#{outcome}</p>"
+  erb(:two_six, { :layout => :wrapper })
 end
 
 get("/dice/2/10") do
@@ -39,30 +32,34 @@ get("/dice/2/10") do
   second_die = rand(1..10)
   sum = first_die + second_die
 
-  result = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
-
-  "<h1>2d10</h1?
-   <p>#{outcome}</p>"
+  @result = "You rolled a #{first_die} and a #{second_die} for a total of #{sum}."
+  
+  # "<h1>2d10</h1?
+  #  <p>#{@result}</p>"
+  erb(:two_ten, { :layout => :wrapper })
 end
 
 get("/dice/1/20") do
   first_die = rand(1..20)
 
-  result = "You rolled a #{first_die}."
+  @result = "You rolled a #{first_die}."
 
-  "<h1>2d10</h1?
-   <p>#{outcome}</p>"
+  # "<h1>2d10</h1?
+  #  <p>#{@result}</p>"
+  erb(:one_twenty, { :layout => :wrapper })
 end
 
-get("/dice/4/5") do
-  die1 = rand(1..5)
-  die2 = rand(1..5)
-  die3 = rand(1..5)
-  die4 = rand(1..5)
-  sum = die1 + die2 + die3 + die4
+get("/dice/5/4") do
+  die1 = rand(1..4)
+  die2 = rand(1..4)
+  die3 = rand(1..4)
+  die4 = rand(1..4)
+  die5 = rand(1..4)
+  sum = die1 + die2 + die3 + die4 + die5
 
-  result = "You rolled a #{die1}, a #{die2}, a #{die1}, and a #{die4} for a total of #{sum}."
+  @outcome = "You rolled a #{die1}, #{die2}, #{die3}, #{die4},and #{die5} for a total of #{sum}."
 
-  "<h1>2d10</h1?
-   <p>#{outcome}</p>"
+  "<h1>4d5</h1?"
+  #  <p>#{@result}</p>"
+  erb(:five_four, { :layout => :wrapper })
 end
